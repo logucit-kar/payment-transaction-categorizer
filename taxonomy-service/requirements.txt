@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pydantic
+sentence-transformers
+scikit-learn
+spacy
+uvicorn
+python-multipart
+# Celery and Redis for task queue
+celery==5.2.7
+kombu==5.2.4
+amqp==5.1.1
+redis==4.5.5

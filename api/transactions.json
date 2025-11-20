@@ -1,0 +1,126 @@
+[
+  {
+    "description": "payment made to dinner",
+    "Amount": 2000
+  },
+  {
+    "description": "payment made to salary",
+       "Amount": 666
+  },
+  {
+    "description": "payment made to pub",
+       "Amount": 2000
+  },
+  {
+    "description": "payment made to rent",
+       "Amount": 666
+  },  
+  {
+    "description": "payment to Movie tickets",
+       "Amount": 66
+  },  
+  {
+    "description": "payment made to gas",
+       "Amount": 4433
+  },  
+  {
+    "description": "payment made to travel",
+    "Amount": 4555
+  },
+  {
+    "description": "payment made to groceries",
+    "Amount": 1234
+  },
+  {
+    "description": "payment made to electricity bill",
+    "Amount": 7890
+  },
+  {
+    "description": "payment made to water bill",
+    "Amount": 3456
+  },
+  {
+    "description": "payment made to internet service",
+    "Amount": 5678
+  },
+  {
+    "description": "payment made to phone bill",
+    "Amount": 2345
+  }, 
+  {
+    "description": "payment made to insurance",
+    "Amount": 6789
+  },
+  {
+    "description": "payment made to medical expenses",
+    "Amount": 8901
+  },
+  {
+    "description": "payment made to education",
+    "Amount": 4567
+  },
+  {
+    "description": "payment made to shopping",
+    "Amount": 3456
+  },
+  {
+    "description": "payment made to entertainment",
+    "Amount": 2345
+  },
+  {
+    "description": "payment made to dining out",
+    "Amount": 1234
+  },
+  {
+    "description": "payment made to travel expenses",
+    "Amount": 5678
+  },
+  {
+    "description": "payment made to gifts",
+    "Amount": 7890
+  },  
+  {
+    "description": "payment made to donations",
+    "Amount": 3456
+  },
+  {
+    "description": "payment made to subscriptions",
+    "Amount": 2345
+  },
+  {
+    "description": "payment made to personal care",
+    "Amount": 1234
+  },
+  {
+    "description": "payment made to household supplies",
+    "Amount": 5678
+  },
+  {
+    "description": "payment made to transportation",
+    "Amount": 7890
+  },
+  {
+    "description": "payment made to childcare",
+    "Amount": 3456
+  },
+  {
+    "description": "payment made to pet care",
+    "Amount": 2345
+  },
+  {
+    "description": "payment made to taxes",
+    "Amount": 1234
+  },
+  {
+    "description": "payment made to investments",
+    "Amount": 5678
+  },
+  {
+    "description": "payment made to retirement savings",
+    "Amount": 7890
+  },
+  {
+    "description": "payment made to miscellaneous expenses",
+    "Amount": 3456
+  }
+]

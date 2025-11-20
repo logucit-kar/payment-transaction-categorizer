@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-transactions_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  django-api:
+    build:
+      context: ./api
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - taxonomy-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+    command: ["./entrypoint.sh"]
+
+  taxonomy-service:
+    build:
+      context: ./taxonomy-service
+    env_file:
+      - .env
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./taxonomy-service/app:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - VITE_TAXONOMY_URL=http://localhost:8100
+
+volumes:
+  pgdata:
