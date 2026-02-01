@@ -24,10 +24,10 @@ cd api/
 python3 -m venv venv
 source venv/bin/activate
 
-pip install -r requirements.txt
-python3 manage.py makemigrations transactions
-python3 manage.py migrate 
-python3 manage.py runserver 8300
+pip install -r requirements.txt  \
+python3 manage.py makemigrations transactions  \
+python3 manage.py migrate  \
+python3 manage.py runserver 8300  \
 
 api/./venv/bin/python -m celery -A api worker -l info 
 
