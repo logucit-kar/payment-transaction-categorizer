@@ -1,2 +1,0 @@
-
-RUN pip install djangorestframework djangorestframework-simplejwt psycopg2-binary

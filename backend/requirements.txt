@@ -4,7 +4,6 @@ psycopg2-binary
 requests
 python-dotenv
 gunicorn
-corsheaders
 django-cors-headers
 redis==4.5.5
 celery[redis]

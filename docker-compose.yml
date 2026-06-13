@@ -1,7 +1,8 @@
-version: '3.8'
+version: "3.8"
+
 services:
   postgres:
-    image: postgres:13
+    image: postgres:15
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -10,30 +11,73 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
 
   django-api:
     build:
-      context: ./api
+      context: ./backend
     env_file:
       - .env
     depends_on:
-      - postgres
-      - taxonomy-service
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      taxonomy-service:
+        condition: service_started
     ports:
-      - "8000:8000"
+      - "8300:8300"
     volumes:
-      - ./api:/app
-    command: ["./entrypoint.sh"]
+      - ./backend:/app
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      TAXONOMY_HOST: http://taxonomy-service:8200
+      TAXONOMY_HOST_BULK: http://taxonomy-service:8200
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+
+  celery-worker:
+    build:
+      context: ./backend
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      taxonomy-service:
+        condition: service_started
+    volumes:
+      - ./backend:/app
+    command: ["celery", "-A", "config", "worker", "-l", "info"]
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      TAXONOMY_HOST: http://taxonomy-service:8200
+      TAXONOMY_HOST_BULK: http://taxonomy-service:8200
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
 
   taxonomy-service:
     build:
-      context: ./taxonomy-service
+      context: ./services/taxonomy
     env_file:
       - .env
     ports:
-      - "8100:8100"
+      - "8200:8200"
     volumes:
-      - ./taxonomy-service/app:/app
+      - ./services/taxonomy/app:/app
 
   frontend:
     build:
@@ -43,9 +87,10 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     environment:
-      - VITE_API_URL=http://localhost:8000
-      - VITE_TAXONOMY_URL=http://localhost:8100
+      VITE_API_URL: http://localhost:8300
+      VITE_TAXONOMY_URL: http://localhost:8200
 
 volumes:
   pgdata:

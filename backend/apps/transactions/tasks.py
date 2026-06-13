@@ -1,13 +1,15 @@
+import json
+import time
+
 import requests
-import os
 from celery import shared_task
-from .models import UploadBatch, UploadItem, Transaction
-import time, math, os, json
+from django.conf import settings
 from django.db import transaction as db_transaction
 
-TAXONOMY_URL = os.getenv('TAXONOMY_HOST', 'http://taxonomy-service:8200')
+from .models import UploadBatch, UploadItem, Transaction
 
-TAXONOMY_BULK_URL = os.getenv('TAXONOMY_HOST_BULK', 'http://127.0.0.1:8200') + '/classify/bulk'  #The hostname only works inside Docker, so use the localhost address here for celery.
+TAXONOMY_URL = settings.TAXONOMY_HOST.rstrip("/")
+TAXONOMY_BULK_URL = f"{settings.TAXONOMY_HOST_BULK.rstrip('/')}/classify/bulk"
 MAX_RETRIES = 5
 BASE_DELAY = 2
 BULK_CHUNK = 200   # number of items to send per classify/bulk call

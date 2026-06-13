@@ -52,7 +52,7 @@
       "convenience store",
       "organic store",
       "farmer's market",
-      "produce"  
+      "produce"
     ]
   },
   {
@@ -126,7 +126,8 @@
       "parking ticket amount",
       "transportation expense",
       "commuting cost",
-      "Shell Gas"
+      "Shell Gas",
+      "petrol"
     ]
   },
   {
@@ -203,7 +204,7 @@
       "pension"
     ]
   },
-   {
+  {
     "id": "6",
     "name": "Entertainment",
     "examples": [
@@ -231,7 +232,7 @@
       "live music"
     ]
   },
-   {
+  {
     "id": "7",
     "name": "Shopping",
     "examples": [

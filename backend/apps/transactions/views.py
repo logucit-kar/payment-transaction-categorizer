@@ -6,7 +6,6 @@ from .models import Transaction, CategoryData
 from .serializers import TransactionSerializer, CategoryDataSerializer
 from django.conf import settings
 import requests
-import os
 from django.db import transaction
 
 from django.http import StreamingHttpResponse
@@ -19,7 +18,7 @@ from io import StringIO
 from django.http import HttpResponse, JsonResponse
 
 
-TAXONOMY_URL = os.getenv('TAXONOMY_HOST', 'http://taxonomy-service:8200')
+TAXONOMY_URL = settings.TAXONOMY_HOST.rstrip("/")
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all().order_by('-created_at')

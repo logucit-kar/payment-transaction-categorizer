@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { postMatch, createTransaction, listExamples, pushExample } from './api'
-
-import BatchProcessing from './BatchProcessing';
-import UploadHistory from './UploadHistory';
-import TransactionList from "./TransactionList";
+import { postMatch, createTransaction, listExamples, pushExample } from './api/client'
+import BatchProcessing from './components/BatchProcessing'
+import UploadHistory from './components/UploadHistory'
+import TransactionList from './components/TransactionList'
 
 export default function App(){
   const [desc, setDesc] = useState('')
